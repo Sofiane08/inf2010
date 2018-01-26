@@ -1,7 +1,7 @@
 /**
  * Classe de pixel en tons de gris
- * @author :
- * @date : 
+ * @author : Jacob Dorais (1879536) et Francois-Xavier Legault()
+ * @date : 25-01-2018
  */
 
 public class GrayPixel  extends AbstractPixel 
@@ -23,6 +23,7 @@ public class GrayPixel  extends AbstractPixel
 	GrayPixel(int pixel)
 	{
 		// compléter
+		this.pixel = pixel;
 		
 	}
 	
@@ -49,6 +50,8 @@ public class GrayPixel  extends AbstractPixel
 	public BWPixel toBWPixel()
 	{
 		// compléter
+		boolean pixelVal = (this.pixel > 127);
+		return new BWPixel(pixelVal);
 		
 	}
 	
@@ -58,6 +61,7 @@ public class GrayPixel  extends AbstractPixel
 	public GrayPixel toGrayPixel()
 	{
 		// compléter
+		return new GrayPixel(this.pixel);
 		
 	}
 	
@@ -67,12 +71,18 @@ public class GrayPixel  extends AbstractPixel
 	public ColorPixel toColorPixel()
 	{
 		// compléter
-		
+		int[] rgb = new int[3];
+		rgb[0] = rgb[1] = rgb[2] = (this.pixel);
+		return new ColorPixel(rgb);
 	}
 	
 	public TransparentPixel toTransparentPixel()
 	{
 		// compléter
+		int[] rgba = new int[4];
+		rgba[0] = rgba[1] = rgba[2] = (this.pixel);
+		rgba[3] = 255;
+		return new TransparentPixel(rgba);
 		
 	}
 	
@@ -82,6 +92,7 @@ public class GrayPixel  extends AbstractPixel
 	public AbstractPixel Negative()
 	{
 		// compléter
+		return new GrayPixel((255-this.pixel));
 	}
 	
 	public void setAlpha(int alpha)

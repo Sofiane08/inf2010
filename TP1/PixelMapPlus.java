@@ -1,14 +1,15 @@
 import java.awt.PageAttributes.ColorType;
 
+import PixelMap.ImageType;
+
 /**
  * Classe PixelMapPlus
  * Image de type noir et blanc, tons de gris ou couleurs
  * Peut lire et ecrire des fichiers PNM
  * Implemente les methodes de ImageOperations
- * @author : 
- * @date   : 
+ * @author : Jacob Dorais(1879536) et Francois-Xavier Legault()
+ * @date : 25-01-2018
  */
-
 public class PixelMapPlus extends PixelMap implements ImageOperations 
 {
 	/**
@@ -56,7 +57,10 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 	 */
 	public void negate()
 	{
-		// compléter
+		// complï¿½ter
+		for(int row = 0; row < this.height; row++)
+			for(int col = 0; col < this.width; col++)
+				imageData[row][col].Negative();
 		
 	}
 	
@@ -65,8 +69,10 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 	 */
 	public void convertToBWImage()
 	{
-		// compléter
-		
+		// complï¿½ter
+		for(int row = 0; row < this.height; row++)
+			for(int col = 0; col < this.width; col++)
+				imageData[row][col].toBWPixel();	
 	}
 	
 	/**
@@ -74,7 +80,10 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 	 */
 	public void convertToGrayImage()
 	{
-		// compléter
+		// complï¿½ter
+		for(int row = 0; row < this.height; row++)
+			for(int col = 0; col < this.width; col++)
+				imageData[row][col].toGrayPixel();
 		
 	}
 	
@@ -83,13 +92,19 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 	 */
 	public void convertToColorImage()
 	{
-		// compléter
+		// complï¿½ter
+		for(int row = 0; row < this.height; row++)
+			for(int col = 0; col < this.width; col++)
+				imageData[row][col].toColorPixel();
 		
 	}
 	
 	public void convertToTransparentImage()
 	{
-		// compléter
+		// complï¿½ter
+		for(int row = 0; row < this.height; row++)
+			for(int col = 0; col < this.width; col++)
+				imageData[row][col].toTransparentPixel();
 		
 	}
 	
@@ -102,7 +117,7 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 	 */
 	public void rotate(int x, int y, double angleRadian)
 	{
-		// compléter
+		// complï¿½ter
 		
 	}
 	
@@ -116,7 +131,7 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 		if(w < 0 || h < 0)
 			throw new IllegalArgumentException();
 		
-		// compléter
+		// complï¿½ter
 		
 	}
 	
@@ -125,8 +140,25 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 	 */
 	public void inset(PixelMap pm, int row0, int col0)
 	{
-		// compléter
-		
+		// complï¿½ter
+		for(int row = row0; row < (row0 + pm.height) && row < this.height; row++)
+		{
+			for(int col = col0; (col < pm.width) && col < this.width; col++)
+				{
+					if( imageType == ImageType.BW )
+						imageData[row][col] = ( pm.getPixel(row, col) ).toBWPixel();
+					else if( imageType == ImageType.Gray )
+						imageData[row][col] = ( pm.getPixel(row, col) ).toGrayPixel();
+					else if( imageType == ImageType.Color )
+					{					
+						imageData[row][col] = ( pm.getPixel(row, col) ).toColorPixel();
+					}
+					else
+					{
+						imageData[row][col] = ( pm.getPixel(row, col) ).toTransparentPixel();
+					}
+				}
+		}
 	}
 	
 	/**
@@ -134,7 +166,7 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 	 */
 	public void crop(int h, int w)
 	{
-		// compléter		
+		// complï¿½ter		
 		
 	}
 	
@@ -143,7 +175,7 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 	 */
 	public void translate(int rowOffset, int colOffset)
 	{
-		// compléter		
+		// complï¿½ter		
 		
 	}
 	
@@ -158,7 +190,7 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 		if(zoomFactor < 1.0)
 			throw new IllegalArgumentException();
 		
-		// compléter
+		// complï¿½ter
 		
 	}
 }

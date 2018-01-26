@@ -114,16 +114,22 @@ public class PixelMap
 		height = h; 
 		width = w;
 		
-		// compléter
+		// complï¿½ter
+		imageData = new AbstractPixel[h][w];
+		
+		
 		
 	}
 	
 	/**
-	 * Libérer la mémoire
+	 * Libï¿½rer la mï¿½moire
 	 */
 	public void clearData()
 	{
-		// compléter
+		// complï¿½ter
+		imageData = null;
+		imageType = null;
+		height = width = 0;
 		
 	}
 	

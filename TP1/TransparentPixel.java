@@ -1,7 +1,7 @@
 /**
  * Classe de pixel transparent
- * @author :
- * @date : 
+ * @author : Jacob Dorais(1879536) et Francois-Xavier Legault()
+ * @date : 25-01-2018
  */
 
 public class TransparentPixel extends AbstractPixel
@@ -27,6 +27,9 @@ public class TransparentPixel extends AbstractPixel
 	TransparentPixel(int[] rgba)
 	{
 		// compléter
+		this.rgba = new int[4];
+		for(int i = 0; i < 4; i++)
+			this.rgba[i] = rgba[i];
 		
 	}
 	
@@ -36,6 +39,11 @@ public class TransparentPixel extends AbstractPixel
 	public BWPixel toBWPixel()
 	{
 		// compléter
+		boolean pixelVal = (((	this.rgba[0]+
+				this.rgba[1]+
+				this.rgba[2])	/3)
+									>127);
+		return new BWPixel(pixelVal);
 		
 	}
 	
@@ -45,6 +53,11 @@ public class TransparentPixel extends AbstractPixel
 	public GrayPixel toGrayPixel()
 	{
 		// compléter
+		int pixelVal = ((	this.rgba[0]+
+								this.rgba[1]+
+								this.rgba[2])
+												/3);
+		return new GrayPixel(pixelVal);
 		
 	}
 	
@@ -54,7 +67,13 @@ public class TransparentPixel extends AbstractPixel
 	public ColorPixel toColorPixel()
 	{
 		// compléter
+		int[] rgb = new int[3];
+		rgb[0] = rgba[0];
+		rgb[1] = rgba[1];
+		rgb[2] = rgba[2];
 		
+		return new ColorPixel(rgb);
+				
 	}
 	
 	/**
@@ -63,12 +82,19 @@ public class TransparentPixel extends AbstractPixel
 	public TransparentPixel Negative()
 	{
 		// compléter
+		int[] rgba = new int[4];
+		rgba[0] = (255-this.rgba[0]);
+		rgba[1] = (255-this.rgba[1]);
+		rgba[2] = (255-this.rgba[2]);
+		rgba[3] = this.rgba[3];
+		return new TransparentPixel(rgba);
 		
 	}
 	
 	public TransparentPixel toTransparentPixel()
 	{
 		// compléter
+		return new TransparentPixel(rgba);
 		
 	}
 	

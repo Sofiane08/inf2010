@@ -1,7 +1,7 @@
 /**
  * Classe de pixel en couleurs 
- * @author :
- * @date : 
+ * @author : Jacob Dorais(1879536) et Francois-Xavier Legault()
+ * @date : 25-01-2018
  */
 
 public class ColorPixel extends AbstractPixel
@@ -26,6 +26,9 @@ public class ColorPixel extends AbstractPixel
 	ColorPixel(int[] rgb)
 	{
 		// compléter
+		this.rgb = new int[3];
+		for(int i = 0; i < 3; i++)
+			this.rgb[i] = rgb[i];
 		
 	}
 	
@@ -35,7 +38,11 @@ public class ColorPixel extends AbstractPixel
 	public BWPixel toBWPixel()
 	{
 		// compléter
-		
+		boolean pixelVal = (((	this.rgb[0]+
+								this.rgb[1]+
+								this.rgb[2])	/3)
+													>127);
+		return new BWPixel(pixelVal);
 	}
 	
 	/**
@@ -44,6 +51,10 @@ public class ColorPixel extends AbstractPixel
 	public GrayPixel toGrayPixel()
 	{
 		// compléter
+		int pixelVal = ((	this.rgb[0]+
+							this.rgb[1]+
+							this.rgb[2])	/3);
+		return new GrayPixel(pixelVal);
 		
 	}
 	
@@ -53,12 +64,19 @@ public class ColorPixel extends AbstractPixel
 	public ColorPixel toColorPixel()
 	{
 		// compléter
+		return new ColorPixel(this.rgb);
 		
 	}
 	
 	public TransparentPixel toTransparentPixel()
 	{
 		// compléter
+		int[] rgba = new int[4];
+		rgba[0] = rgb[0];
+		rgba[1] = rgb[1];
+		rgba[2] = rgb[2];
+		rgba[3] = 255;
+		return new TransparentPixel(rgba);
 		
 	}
 	
@@ -68,6 +86,11 @@ public class ColorPixel extends AbstractPixel
 	public AbstractPixel Negative()
 	{
 		// compléter
+		int[] rgb = new int[3];
+		rgb[0] = (255 - this.rgb[0]);
+		rgb[1] = (255 - this.rgb[1]);
+		rgb[2] = (255 - this.rgb[2]);
+		return new ColorPixel(rgb);
 		
 	}
 	
