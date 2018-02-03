@@ -1,7 +1,5 @@
 import java.awt.PageAttributes.ColorType;
 
-import PixelMap.ImageType;
-
 /**
  * Classe PixelMapPlus
  * Image de type noir et blanc, tons de gris ou couleurs
@@ -61,7 +59,6 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 		for(int row = 0; row < this.height; row++)
 			for(int col = 0; col < this.width; col++)
 				imageData[row][col].Negative();
-		
 	}
 	
 	/**
@@ -84,7 +81,6 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 		for(int row = 0; row < this.height; row++)
 			for(int col = 0; col < this.width; col++)
 				imageData[row][col].toGrayPixel();
-		
 	}
 	
 	/**
@@ -96,7 +92,6 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 		for(int row = 0; row < this.height; row++)
 			for(int col = 0; col < this.width; col++)
 				imageData[row][col].toColorPixel();
-		
 	}
 	
 	public void convertToTransparentImage()
@@ -105,7 +100,6 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 		for(int row = 0; row < this.height; row++)
 			for(int col = 0; col < this.width; col++)
 				imageData[row][col].toTransparentPixel();
-		
 	}
 	
 	/**
@@ -118,7 +112,37 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 	public void rotate(int x, int y, double angleRadian)
 	{
 		// complï¿½ter
+		double cos = Math.cos(angleRadian);
+		double sin = Math.sin(angleRadian);
 		
+		AbstractPixel[][] imageDataTemp = new AbstractPixel[height][width];
+ 		
+		for (int row = 0; row < height; row++) {
+			for (int col = 0; col < width; col++) {
+				double oldX = cos*col + sin*row + (x - x * cos - y*sin);
+				double oldY = -1*sin*col + cos*row + (y - y*cos + x*sin);
+				
+		        if (!(oldX >= width || oldX < 0 || oldY < 0 || oldY >= height - 1)) {
+		        	imageDataTemp[row][col] = imageData[(int)oldY][(int)oldX];
+		        }
+		        else {	//On créé un pixel blanc du bon type
+		        	if(imageType == ImageType.BW){
+		        		imageDataTemp[row][col] = new BWPixel();
+		        	}
+		        	else if(imageType == ImageType.Gray){
+		        		imageDataTemp[row][col] = new GrayPixel();
+		        	}
+		        	else if(imageType == ImageType.Color){
+		        		imageDataTemp[row][col] = new ColorPixel();
+		        	}
+		        	else if(imageType == ImageType.Transparent){
+		        		imageDataTemp[row][col] = new TransparentPixel();
+		        	}
+		        }
+			}
+		}
+		
+		imageData = imageDataTemp;
 	}
 	
 	/**

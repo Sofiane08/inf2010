@@ -16,7 +16,7 @@ public class Main
 		 * Exercice 1
 		 */
 		
-		PixelMap pmc = new PixelMap("./source/ed.ppm");
+		PixelMap pmc = new PixelMap("./ed.ppm");
 		PixelMap pmg = pmc.toGrayImage();
 		PixelMap pmb = pmc.toBWImage();
 		
@@ -40,7 +40,7 @@ public class Main
 		/**
 		 * Exercice 2
 		 */
-		/*
+		
 		PixelMapPlus pmp = new PixelMapPlus("./ed.ppm");
 		
 		PixelMapPlus hpmp = new PixelMapPlus( pmp );
@@ -68,7 +68,7 @@ public class Main
 		pmp.inset(npmp, pmp.getHeight()/2, pmp.getWidth()/2);
 		
 		wName = "Edsger Dijkstra";
-		new DisplayImageWindow(wName, pmp);*/
+		new DisplayImageWindow(wName, pmp);
 		
 	}
 }
