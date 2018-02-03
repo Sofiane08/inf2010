@@ -4,6 +4,7 @@
  * @date : 2015-09-06
  */
 
+
 public class BWPixel extends AbstractPixel 
 {
 	boolean pixel; // donnee du pixel
