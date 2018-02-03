@@ -117,8 +117,22 @@ public class PixelMap
 		// compl�ter
 		imageData = new AbstractPixel[h][w];
 		
-		
-		
+		for (int row = 0; row < h; row ++) {
+			for (int col = 0; col<w; col++ ) {
+				if(type == ImageType.BW) {
+					imageData[row][col] = new BWPixel(); 
+				}
+				else if(type == ImageType.Gray){
+					imageData[row][col] = new GrayPixel(); 
+				}
+				else if(type == ImageType.Color){
+					imageData[row][col] = new ColorPixel();  
+				}
+				else if(type == ImageType.Transparent){
+					imageData[row][col] = new TransparentPixel();  
+				}	
+			}
+		}
 	}
 	
 	/**
