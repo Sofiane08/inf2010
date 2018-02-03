@@ -8,14 +8,12 @@ import java.awt.PageAttributes.ColorType;
  * @author : Jacob Dorais(1879536) et Francois-Xavier Legault()
  * @date : 25-01-2018
  */
-public class PixelMapPlus extends PixelMap implements ImageOperations 
-{
+public class PixelMapPlus extends PixelMap implements ImageOperations {
 	/**
 	 * Constructeur creant l'image a partir d'un fichier
 	 * @param fileName : Nom du fichier image
 	 */
-	PixelMapPlus(String fileName)
-	{
+	PixelMapPlus(String fileName){
 		super( fileName );
 	}
 	
@@ -24,8 +22,7 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 	 * @param type : type de l'image a creer (BW/Gray/Color)
 	 * @param image : source
 	 */
-	PixelMapPlus(PixelMap image)
-	{
+	PixelMapPlus(PixelMap image){
 		super(image); 
 	}
 	
@@ -34,8 +31,7 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 	 * @param type : type de l'image a creer (BW/Gray/Color)
 	 * @param image : source
 	 */
-	PixelMapPlus(ImageType type, PixelMap image)
-	{
+	PixelMapPlus(ImageType type, PixelMap image){
 		super(type, image); 
 	}
 	
@@ -45,61 +41,60 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 	 * @param h : hauteur (height) de l'image 
 	 * @param w : largeur (width) de l'image
 	 */
-	PixelMapPlus(ImageType type, int h, int w)
-	{
+	PixelMapPlus(ImageType type, int h, int w){
 		super(type, h, w);
 	}
 	
 	/**
 	 * Genere le negatif d'une image
 	 */
-	public void negate()
-	{
+	public void negate(){
 		// compl�ter
 		for(int row = 0; row < this.height; row++)
 			for(int col = 0; col < this.width; col++)
-				imageData[row][col].Negative();
+				imageData[row][col] = imageData[row][col].Negative();
+		
 	}
 	
 	/**
 	 * Convertit l'image vers une image en noir et blanc
 	 */
-	public void convertToBWImage()
-	{
+	public void convertToBWImage(){
 		// compl�ter
 		for(int row = 0; row < this.height; row++)
 			for(int col = 0; col < this.width; col++)
-				imageData[row][col].toBWPixel();	
+				imageData[row][col] = imageData[row][col].toBWPixel();	
+		imageType = ImageType.BW;
 	}
 	
 	/**
 	 * Convertit l'image vers un format de tons de gris
 	 */
-	public void convertToGrayImage()
-	{
+	public void convertToGrayImage(){
 		// compl�ter
-		for(int row = 0; row < this.height; row++)
-			for(int col = 0; col < this.width; col++)
-				imageData[row][col].toGrayPixel();
+		for(int row = 0; row < height; row++)
+			for(int col = 0; col < width; col++)
+				imageData[row][col] = imageData[row][col].toGrayPixel();
+		imageType = ImageType.Gray;
 	}
 	
 	/**
 	 * Convertit l'image vers une image en couleurs
 	 */
-	public void convertToColorImage()
-	{
+	public void convertToColorImage(){
 		// compl�ter
 		for(int row = 0; row < this.height; row++)
 			for(int col = 0; col < this.width; col++)
-				imageData[row][col].toColorPixel();
+				imageData[row][col] = imageData[row][col].toColorPixel();
+		imageType = ImageType.Color;
 	}
 	
-	public void convertToTransparentImage()
-	{
+	public void convertToTransparentImage(){
 		// compl�ter
 		for(int row = 0; row < this.height; row++)
 			for(int col = 0; col < this.width; col++)
-				imageData[row][col].toTransparentPixel();
+				imageData[row][col] = imageData[row][col].toTransparentPixel();
+		imageType = ImageType.Transparent;
 	}
 	
 	/**
@@ -156,40 +151,45 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 			throw new IllegalArgumentException();
 		
 		// compl�ter
+		AbstractPixel[][] newImageData = new AbstractPixel[h][w];
 		
+		double HFactor = height/h;
+		double WFactor = width/w;
+		
+		for(int row = 0; row < h; row++) {
+			for(int col = 0; col < w; col++) {
+				newImageData[row][col] = imageData[row*(int)HFactor][col*(int)WFactor];
+			}
+		}
+		
+		height = h;
+		width = w;
+		imageData = newImageData;
 	}
 	
 	/**
 	 * Insert pm dans l'image a la position row0 col0
 	 */
-	public void inset(PixelMap pm, int row0, int col0)
-	{
+	public void inset(PixelMap pm, int row0, int col0){
 		// compl�ter
-		for(int row = row0; row < (row0 + pm.height) && row < this.height; row++)
-		{
-			for(int col = col0; (col < pm.width) && col < this.width; col++)
-				{
-					if( imageType == ImageType.BW )
-						imageData[row][col] = ( pm.getPixel(row, col) ).toBWPixel();
-					else if( imageType == ImageType.Gray )
-						imageData[row][col] = ( pm.getPixel(row, col) ).toGrayPixel();
-					else if( imageType == ImageType.Color )
-					{					
-						imageData[row][col] = ( pm.getPixel(row, col) ).toColorPixel();
-					}
-					else
-					{
-						imageData[row][col] = ( pm.getPixel(row, col) ).toTransparentPixel();
-					}
-				}
+		for (int row = row0; row < height && row - row0 < pm.getHeight(); row++) {
+			for (int col = col0; col < width && col - col0 < pm.getWidth(); col++) {
+				if( imageType == ImageType.BW )
+					imageData[row][col] = ( pm.getPixel(row - row0, col - col0) ).toBWPixel();
+				else if( imageType == ImageType.Gray )
+					imageData[row][col] = ( pm.getPixel(row - row0, col - col0) ).toGrayPixel();
+				else if( imageType == ImageType.Color )				
+					imageData[row][col] = ( pm.getPixel(row - row0, col - col0) ).toColorPixel();
+				else
+					imageData[row][col] = ( pm.getPixel(row - row0, col - col0) ).toTransparentPixel();
+			}
 		}
 	}
 	
 	/**
 	 * Decoupe l'image 
 	 */
-	public void crop(int h, int w)
-	{
+	public void crop(int h, int w){
 		// compl�ter		
 		
 	}
@@ -197,8 +197,7 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 	/**
 	 * Effectue une translation de l'image 
 	 */
-	public void translate(int rowOffset, int colOffset)
-	{
+	public void translate(int rowOffset, int colOffset){
 		// compl�ter		
 		
 	}
@@ -209,8 +208,7 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 	 * @param y : rangee autour de laquelle le zoom sera effectue  
 	 * @param zoomFactor : facteur du zoom a effectuer. Doit etre superieur a 1
 	 */
-	public void zoomIn(int x, int y, double zoomFactor) throws IllegalArgumentException
-	{
+	public void zoomIn(int x, int y, double zoomFactor) throws IllegalArgumentException{
 		if(zoomFactor < 1.0)
 			throw new IllegalArgumentException();
 		
