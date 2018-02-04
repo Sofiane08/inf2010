@@ -221,14 +221,26 @@ public class PixelMapPlus extends PixelMap implements ImageOperations {
 			throw new IllegalArgumentException();
 		
 		// compl�ter
-		AbstractPixel[][] newImageData = new AbstractPixel[height][width];
-		
-		for(int row = 0; row < height; row++) {
-			for(int col = 0; col < width; col++) {
-				//newImageData[row][col] = imageData[row + x - (int)(width/zoomFactor)][col + y - (int)(height/zoomFactor)];
-			}
-		}
-		
-		//imageData = newImageData;
+        PixelMapPlus imageCopy = new PixelMapPlus(this);
+        
+        if(x - (int) ((width/2)/zoomFactor) < 0) {
+        	x = (int) ((width/2)/zoomFactor);
+        }
+        if(x + (int) ((width/2)/zoomFactor) >= width) {
+        	x = width - (int) ((width/2)/zoomFactor) - 1;
+        }
+        if(y - (int) ((height/2)/zoomFactor) < 0) {
+        	y = (int)((height/2)/zoomFactor);
+        }
+        if(y + (int) ((height/2)/zoomFactor) >= height) {
+        	y = height - (int) ((height/2)/zoomFactor) - 1;
+        }
+        
+        for(int row = 0; row < height ; row++){
+        	for(int col = 0; col < width; col++){
+        		imageData[row][col] = imageCopy.imageData[y - (int) ((height/2)/zoomFactor) + (int) (row/zoomFactor)]
+        												 [x - (int) ((width/2)/zoomFactor) + (int) (col/zoomFactor)];
+        	}
+        }
 	}
 }
