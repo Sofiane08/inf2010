@@ -18,7 +18,7 @@ public class Main
 		
 		PixelMap pmc = new PixelMap("./ed.ppm");
 		PixelMap pmg = pmc.toGrayImage();
-		PixelMap pmb = pmc.toBWImage();
+		PixelMap pmb = pmc.toBWImage();		
 		
 		PixelMap pmt = pmc.toTransparentImage();
 		for(int i = 0; i < pmt.height; ++i)

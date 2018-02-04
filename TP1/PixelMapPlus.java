@@ -191,7 +191,17 @@ public class PixelMapPlus extends PixelMap implements ImageOperations {
 	 */
 	public void crop(int h, int w){
 		// compl�ter		
-		
+	    PixelMapPlus newImage = new PixelMapPlus(this);
+	    newImage.AllocateMemory(imageType, h, w);
+	    for (int row = 0; row < h; row++) {
+	      for (int col = 0; col < w; col++) {
+	        if (!(col >= width || row >= height)) {
+	        	newImage.imageData[row][col] = imageData[row][col];
+	        }
+	      }
+	    }
+	    
+	    imageData = newImage.imageData;
 	}
 	
 	/**
@@ -213,6 +223,14 @@ public class PixelMapPlus extends PixelMap implements ImageOperations {
 			throw new IllegalArgumentException();
 		
 		// compl�ter
+		AbstractPixel[][] newImageData = new AbstractPixel[height][width];
 		
+		for(int row = 0; row < height; row++) {
+			for(int col = 0; col < width; col++) {
+				//newImageData[row][col] = imageData[row + x - (int)(width/zoomFactor)][col + y - (int)(height/zoomFactor)];
+			}
+		}
+		
+		//imageData = newImageData;
 	}
 }
