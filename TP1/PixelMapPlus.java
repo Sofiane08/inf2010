@@ -196,7 +196,18 @@ public class PixelMapPlus extends PixelMap implements ImageOperations {
 	 */
 	public void translate(int rowOffset, int colOffset){
 		// compl�ter		
+		PixelMapPlus newImage = new PixelMapPlus(this);
+		newImage.AllocateMemory(imageType, height, width);
 		
+		for(int row = 0; row < height; row++) {
+			for(int col = 0; col < width; col++) {
+				if(row - rowOffset > 0 && row - rowOffset < height && col - colOffset > 0 && col - colOffset < width) {
+					newImage.imageData[row][col] = imageData[row - rowOffset][col - colOffset];
+				}
+			}
+		}
+		
+		imageData = newImage.imageData;
 	}
 	
 	/**
