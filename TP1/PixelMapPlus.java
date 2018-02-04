@@ -110,7 +110,8 @@ public class PixelMapPlus extends PixelMap implements ImageOperations {
 		double cos = Math.cos(angleRadian);
 		double sin = Math.sin(angleRadian);
 		
-		AbstractPixel[][] imageDataTemp = new AbstractPixel[height][width];
+		PixelMapPlus imageTemp = new PixelMapPlus(this);
+		imageTemp.AllocateMemory(imageType, height, width);
  		
 		for (int row = 0; row < height; row++) {
 			for (int col = 0; col < width; col++) {
@@ -118,26 +119,12 @@ public class PixelMapPlus extends PixelMap implements ImageOperations {
 				double oldY = -1*sin*col + cos*row + (y - y*cos + x*sin);
 				
 		        if (!(oldX >= width || oldX < 0 || oldY < 0 || oldY >= height - 1)) {
-		        	imageDataTemp[row][col] = imageData[(int)oldY][(int)oldX];
-		        }
-		        else {	//On créé un pixel blanc du bon type
-		        	if(imageType == ImageType.BW){
-		        		imageDataTemp[row][col] = new BWPixel();
-		        	}
-		        	else if(imageType == ImageType.Gray){
-		        		imageDataTemp[row][col] = new GrayPixel();
-		        	}
-		        	else if(imageType == ImageType.Color){
-		        		imageDataTemp[row][col] = new ColorPixel();
-		        	}
-		        	else if(imageType == ImageType.Transparent){
-		        		imageDataTemp[row][col] = new TransparentPixel();
-		        	}
+		        	imageTemp.imageData[row][col] = imageData[(int)oldY][(int)oldX];
 		        }
 			}
 		}
 		
-		imageData = imageDataTemp;
+		imageData = imageTemp.imageData;
 	}
 	
 	/**
