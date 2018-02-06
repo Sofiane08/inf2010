@@ -60,7 +60,7 @@ public class FormValidator
 				case 6:
 					int oldh = pm[i].height, oldw = pm[i].width; 
 					pm[i].resize(pm[i].width/2, pm[i].height/2);
-					pm[i].crop(oldh, oldw);
+					pm[i].crop(2*oldh, 2*oldw);
 					pm[i].translate(oldw/4, oldh/4);
 					pm[i].rotate( pm[i].width/2, 0, RADIAN_20DEGREE);
 					break;
@@ -132,6 +132,12 @@ public class FormValidator
 		
 		// compléter
 		
+		for(int i = 0; i < length; i++)
+		{
+			charKey[i] = (char)(generator.nextInt( (int)'Z' - (int)'A' +1)+ ((int)'A'));
+		}
+		String code = new String("ABCDE");//charKey);
+		return code;
 	}
 	
 	/**
@@ -148,6 +154,12 @@ public class FormValidator
 		
 		// compléter
 		
+		for(int i = 0; i < nb; i++)
+		{
+			charTransform[i] = 6;//generator.nextInt( 9 + 1 );
+		}
+		
+		return charTransform;
 	}
 
 }
