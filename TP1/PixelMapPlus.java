@@ -180,6 +180,7 @@ public class PixelMapPlus extends PixelMap implements ImageOperations {
 		// compl�ter		
 	    PixelMapPlus newImage = new PixelMapPlus(this);
 	    newImage.AllocateMemory(imageType, h, w);
+	    
 	    for (int row = 0; row < h; row++) {
 	      for (int col = 0; col < w; col++) {
 	        if (!(col >= width || row >= height)) {
@@ -187,7 +188,8 @@ public class PixelMapPlus extends PixelMap implements ImageOperations {
 	        }
 	      }
 	    }
-	    
+	    height = h;
+	    width = w;
 	    imageData = newImage.imageData;
 	}
 	
