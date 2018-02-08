@@ -73,6 +73,7 @@ public class ArrayQueue<AnyType> implements Queue<AnyType>
 			newTable[i] = table[i +startindex];
 		}
 		table = newTable;
+		startindex = 0;
 	}   
 }
 
