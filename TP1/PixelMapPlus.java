@@ -5,7 +5,7 @@ import java.awt.PageAttributes.ColorType;
  * Image de type noir et blanc, tons de gris ou couleurs
  * Peut lire et ecrire des fichiers PNM
  * Implemente les methodes de ImageOperations
- * @author : Jacob Dorais(1879536) et Francois-Xavier Legault()
+ * @author : Jacob Dorais(1879536) et Francois-Xavier Legault(1876882)
  * @date : 25-01-2018
  */
 public class PixelMapPlus extends PixelMap implements ImageOperations {
@@ -115,6 +115,7 @@ public class PixelMapPlus extends PixelMap implements ImageOperations {
  		
 		for (int row = 0; row < height; row++) {
 			for (int col = 0; col < width; col++) {
+				
 				double oldX = cos*col + sin*row + (x - x * cos - y*sin);
 				double oldY = -1*sin*col + cos*row + (y - y*cos + x*sin);
 				

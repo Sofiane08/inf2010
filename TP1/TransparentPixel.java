@@ -1,6 +1,6 @@
 /**
  * Classe de pixel transparent
- * @author : Jacob Dorais(1879536) et Francois-Xavier Legault()
+ * @author : Jacob Dorais(1879536) et Francois-Xavier Legault(1876882)
  * @date : 25-01-2018
  */
 

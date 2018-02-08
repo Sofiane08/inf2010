@@ -1,6 +1,6 @@
 /**
- * Classe de pixel en tons de gris
- * @author : Jacob Dorais (1879536) et Francois-Xavier Legault()
+ * Classe de pixel en couleurs 
+ * @author : Jacob Dorais(1879536) et Francois-Xavier Legault(1876882)
  * @date : 25-01-2018
  */
 
