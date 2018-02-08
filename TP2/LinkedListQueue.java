@@ -51,7 +51,8 @@ public class LinkedListQueue<AnyType> implements Queue<AnyType>
 	public AnyType peek()
 	{
 		//A completer
-		
+		if(empty()) return null;
+		return last.getNext().getData();
 	}
 	
 	//Retire l'element en tete de file
@@ -59,7 +60,9 @@ public class LinkedListQueue<AnyType> implements Queue<AnyType>
 	public void pop() throws EmptyQueueException
 	{
 		//A completer
-		
+		EmptyQueueException e = new EmptyQueueException();
+		if(empty()) throw e;
+		last.setNext(last.getNext().getNext());
 	}
 	
 	//Ajoute un element a la fin de la file
@@ -67,6 +70,7 @@ public class LinkedListQueue<AnyType> implements Queue<AnyType>
 	public void push(AnyType item)
 	{		
 		//A completer
-		
+		Node<AnyType> node = new Node<AnyType>(item, last.getNext());
+		last.setNext(node);
 	}  
 }
