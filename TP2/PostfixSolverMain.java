@@ -14,6 +14,34 @@ public class PostfixSolverMain
 		{
 			//A completer
 			
+			//si token est une opération
+			if(token.equals("+") || token.equals("-") || token.equals("*") || token.equals("/"))
+			{
+				double first = stack.pop();
+				double second = stack.pop();
+				double result;
+				switch(token)
+				{
+				case "+": result = first+second;break;
+				
+				case "-": result = second-first;break;
+				
+				case "*": result = first*second;break;
+				
+				case "/": result = second/first;break;
+				
+				default: result = 0;
+				
+				}
+				
+				stack.push(result);
+			}
+			else
+			{
+				//si token est un nombre
+				
+				stack.push(Double.parseDouble(token));
+			}
 		}
      
 		System.out.println("25 + 5*2 + 15/3 - 5 = "+stack.peek());
