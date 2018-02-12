@@ -85,8 +85,8 @@ public class SortStackMain
 		
 		
 		//sort chaque partie 
-		sortStack(left);
-		sortStack(right);
+		left = sortStack(left);
+		right = sortStack(right);
 		
 		//merge les deux stack:
 		Stack<Integer> inverted = new Stack<Integer>();
