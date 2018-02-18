@@ -1,3 +1,8 @@
+/**
+ * classe de la file par liste liée
+ * @author : Jacob Dorais(1879536) et Francois-Xavier Legault(1876882)
+ * @date : 17-02-2018
+ */
 
 public class LinkedListQueue<AnyType> implements Queue<AnyType>
 {	

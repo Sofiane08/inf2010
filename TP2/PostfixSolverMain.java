@@ -1,3 +1,9 @@
+/**
+ * programme principale sur les équations postfix
+ * @author : Jacob Dorais(1879536) et Francois-Xavier Legault(1876882)
+ * @date : 17-02-2018
+ */
+
 import java.io.*;
 import java.util.Stack;
 

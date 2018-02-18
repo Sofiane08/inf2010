@@ -1,3 +1,9 @@
+/**
+ * programme principale contenant les fonctions sortstack et size
+ * @author : Jacob Dorais(1879536) et Francois-Xavier Legault(1876882)
+ * @date : 17-02-2018
+ */
+
 import java.util.Random;
 import java.util.Stack;
 
@@ -64,7 +70,9 @@ public class SortStackMain
 	{
 		//A completer
 		
-		//nous allons procéder à un merge sort.
+		//nous allons procéder à un merge sort. 
+		//complexité asymptotique: O(nlog(n)) 
+		//malgré la boucle supplémentaire pour l'inverser.
 		//
 		//comme nous ne pouvons utiliser que peek, pop, push et empty, 
 		//nous compterons le nombre d'éléments lors de la séparation.
@@ -88,7 +96,8 @@ public class SortStackMain
 		left = sortStack(left);
 		right = sortStack(right);
 		
-		//merge les deux stack:
+		//merge les deux stack: comme les plus petits sont sur le dessus,
+		//nous mettrons le plus petit dans le fond.
 		Stack<Integer> inverted = new Stack<Integer>();
 		for(int i = 0; i < qt; i++)
 		{
