@@ -89,13 +89,9 @@ public class QuadraticSpacePerfectHashing<AnyType>
    private boolean collisionExists(ArrayList<AnyType> array)
    {
       // A completer
-      int keyOG, keyPhony, m = array.size() * array.size();
       for(int i = 0; i < array.size(); i ++) {
-    	  keyOG = ( ( a*array.get(i).hashCode() + b ) % p ) % m;
-    	  for(int j = i + 1; j < array.size(); j++) {
-    		  keyPhony = ( ( a*array.get(j).hashCode() + b ) % p ) % m;
-    		  if(keyOG == keyPhony) return true;
-    	  }
+    	  int key = ( ( a*array.get(i).hashCode() + b ) % p ) % (array.size() * array.size());
+    	  if(items[key] != array.get(i)) return true;
       }
       return false;
    }
