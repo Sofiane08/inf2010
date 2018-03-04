@@ -31,6 +31,7 @@ public class LinearSpacePerfectHashing<AnyType>
       if(array == null || array.size() == 0)
       {
          // A completer
+		 data = null;
          return;
       }
       if(array.size() == 1)
@@ -38,10 +39,30 @@ public class LinearSpacePerfectHashing<AnyType>
          a = b = 0;
          
          // A completer
+		 data = (QuadraticSpacePerfectHashing<AnyType>[]) new Object[1];
+		 data[0] = new QuadraticSpacePerfectHashing<AnyType>(array);
          return;
       }
       
       // A completer
+	  a = generator.nextInt(p) + 1;
+	  b = generator.nextInt(p);
+	  ArrayList<ArrayList<AnyType>> tabSamePosition = new ArrayList<ArrayList<AnyType>>(array.size());
+	  
+	  for(int i = 0; i < array.size(); i++) {
+	      tabSamePosition.add(new ArrayList<AnyType>());
+	  }
+
+	  int key;
+	  for (int i = 0; i < array.size(); i++) {
+     	 key = getKey(array.get(i), array);
+     	 tabSamePosition.get(key).add(array.get(i));
+	  }
+	  
+	  data = new QuadraticSpacePerfectHashing[tabSamePosition.size()];
+	  for (int i = 0; i < tabSamePosition.size(); i++) {
+		data[i] = new QuadraticSpacePerfectHashing<AnyType>(tabSamePosition.get(i));
+	  }
    }
    
    public int Size()
