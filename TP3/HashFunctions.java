@@ -80,10 +80,18 @@ public class HashFunctions
    /**
     * Question 1
     */
-   public static ArrayList<Integer> randomIntegers(int length)
-   {
-      return null;
-   }
+   	public static ArrayList<Integer> randomIntegers(int length){
+   		Random generator = new Random(System.nanoTime());
+   		ArrayList<Integer> arrayListe = new ArrayList<Integer>(length);
+   		for(int i = 0; i < length; i++) {
+   			int random;
+   			do {
+   				random = generator.nextInt(p);
+   			}while(arrayListe.contains(random));
+   			arrayListe.add(i, random);
+   		}
+     	return arrayListe;
+   }   
 }
 
 
