@@ -89,4 +89,8 @@ public class LinearSpacePerfectHashing<AnyType>
       
       return ((data[index] != null) && (data[index].contains(x)));
    }
+   
+   private int getKey(AnyType x, ArrayList<AnyType> array) {
+	   return ((a * x.hashCode() + b) % p ) % array.size();
+   }
 }
