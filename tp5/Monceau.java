@@ -9,10 +9,75 @@ public class Monceau {
 
 	public void fusion(Monceau autre) {
 		// A completer
+		Node retenue = null;
+		Node arbreautre = null;
+		Node arbrethis = null;
+		
+		
+		int j = 0;
+		//tant qu<il ny a pu rien
+		//pour tout j
+		while(j < this.arbres.size() || j < autre.arbres.size() || (retenue!= null && j < retenue.ordre))
+		{
+		
+			int n = 0;
+			if(retenue != null && retenue.ordre == j) n++;
+			for(int i = 0; i < autre.arbres.size(); i++)
+				if (autre.arbres.get(i).ordre == j) 
+				{
+					n+=2;
+					arbreautre = autre.arbres.get(i);
+				}
+			for(int i = 0; i < this.arbres.size(); i++)
+				if (this.arbres.get(i).ordre == j) 
+					{
+						n+=4;
+						arbrethis = this.arbres.get(i);
+					}
+			try {
+				switch(n) {
+				case 0: 
+					break;
+				case 1:
+					this.arbres.add(retenue);
+					break;
+				case 2:
+					this.arbres.add(arbreautre);
+					break;
+				case 3:
+					retenue.fusion(arbreautre);
+					this.arbres.add(retenue);
+					break;
+				case 4:
+					this.arbres.add(arbrethis);
+					break;
+				case 5:
+					retenue.fusion(arbrethis);
+					this.arbres.add(retenue);
+					break;
+				case 6:
+					arbreautre.fusion(arbrethis);
+					this.arbres.add(arbreautre);
+					break;
+				case 7:
+					retenue.fusion(arbrethis);
+					this.arbres.add(arbreautre);
+					break;
+		
+				default: break;
+				}
+			}
+			catch(DifferentOrderTrees e){}
+			j++;
+		}
 	}
 
 	public void insert(int val) {
 		// A completer
+		Monceau n = new Monceau();
+		Node nnode = new Node(val);
+		n.arbres.add(nnode);
+		this.fusion(n);
 	}
 
 	public boolean delete(int val) {

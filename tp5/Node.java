@@ -57,26 +57,89 @@ public class Node {
 
 	public Node fusion(Node autre) throws DifferentOrderTrees {
 		// A completer
+		if(this.ordre != autre.ordre) {throw new DifferentOrderTrees(); }
+		if(this.parent == null && autre.parent == null)
+		{
+			if(this.valeur < autre.valeur) 
+				{
+					autre.addEnfant(this);
+					autre.ordre++;
+					this.parent = autre;
+					return autre;
+				}
+			else
+				{
+					this.addEnfant(autre);
+					this.ordre++;
+					autre.parent = this;
+					return this;
+				}
+		}
 		return null;
 	}
 
 	private void moveUp() {
 		// A completer
+		Node parent = this.parent;
+		ArrayList<Node> enfants = this.enfants;
+		
+		
+		this.parent = parent.parent;
+		this.enfants = parent.enfants;
+		this.enfants.add(parent);
+		this.enfants.remove(this);
+		this.ordre++;
+		
+		parent.enfants = enfants;
+		parent.parent = this;
+		parent.ordre--;
 	}
 
 	public ArrayList<Node> delete() {
 		// A completer
-		return null;
+		while(this.parent != null)
+			this.moveUp();
+		for(int i = 0; i < this.enfants.size(); i++)
+		{
+			this.enfants.get(i).parent = null;
+		}
+		return this.enfants;
 	}
 
 	public Node findValue(int valeur) {
 		// A completer
+		if (this.valeur == valeur) {return this;}
+		else if(this.valeur > valeur)
+		{
+			for(int i = 0; i < this.enfants.size(); i++)
+			{
+				Node temp = this.enfants.get(i).findValue(valeur);
+				if(temp != null) return temp;
+			}
+		}
 		return null;
 	}
 
 	public ArrayList<Integer> getElementsSorted() {
 		// A completer
-		return null;
+		ArrayList<Node> S = new ArrayList<Node>();
+		ArrayList<Integer> sorted = new ArrayList<Integer>();
+		S.add(this); //la racine
+		while (S.size() != 0)
+		{
+			int indexmax = 0;
+			for(int n = 1; n < S.size(); n++)
+				if(S.get(n).valeur > S.get(indexmax).valeur)
+					indexmax = n;
+			Node nodemax = S.get(indexmax);
+			
+			sorted.add(nodemax.valeur);
+			S.remove(indexmax);
+			for(int n = 0; n < nodemax.enfants.size(); n++)
+				S.add(nodemax.enfants.get(n));
+		}
+		
+		return sorted;
 	}
 
 	public void print() {
