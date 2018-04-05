@@ -48,23 +48,20 @@ public class Monceau {
 					this.arbres.add(arbreautre);
 					break;
 				case 3:
-					retenue.fusion(arbreautre);
-					this.arbres.add(retenue);
+					retenue = retenue.fusion(arbreautre);
 					break;
 				case 4:
 					this.arbres.add(arbrethis);
 					break;
 				case 5:
-					retenue.fusion(arbrethis);
-					this.arbres.add(retenue);
+					retenue = retenue.fusion(arbrethis);
 					break;
 				case 6:
-					arbreautre.fusion(arbrethis);
-					this.arbres.add(arbreautre);
+					retenue = arbrethis.fusion(arbreautre);
 					break;
 				case 7:
-					retenue.fusion(arbrethis);
-					this.arbres.add(arbreautre);
+					retenue = retenue.fusion(arbreautre);
+					this.arbres.add(arbrethis);
 					break;
 		
 				default: break;
