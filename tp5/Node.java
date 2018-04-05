@@ -93,6 +93,13 @@ public class Node {
 		parent.enfants = enfants;
 		parent.parent = this;
 		parent.ordre = ordre;
+		
+		if (this.parent != null)
+		{
+			this.parent.enfants.add(this);
+			this.parent.enfants.remove(parent);
+		}
+		
 	}
 
 	public ArrayList<Node> delete() {
