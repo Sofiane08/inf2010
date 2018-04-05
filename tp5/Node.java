@@ -82,7 +82,7 @@ public class Node {
 		// A completer
 		Node parent = this.parent;
 		ArrayList<Node> enfants = this.enfants;
-		
+		int ordre = this.ordre;
 		
 		this.parent = parent.parent;
 		this.enfants = parent.enfants;
