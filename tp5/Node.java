@@ -92,7 +92,7 @@ public class Node {
 		
 		parent.enfants = enfants;
 		parent.parent = this;
-		parent.ordre--;
+		parent.ordre = ordre;
 	}
 
 	public ArrayList<Node> delete() {
