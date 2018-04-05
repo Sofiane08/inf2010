@@ -28,12 +28,14 @@ public class Monceau {
 				{
 					n+=2;
 					arbreautre = autre.arbres.get(i);
+					autre.arbres.remove(i);
 				}
 			for(int i = 0; i < this.arbres.size(); i++)
 				if (this.arbres.get(i).ordre == j) 
 					{
 						n+=4;
 						arbrethis = this.arbres.get(i);
+						this.arbres.remove(i);
 					}
 			try {
 				switch(n) {
