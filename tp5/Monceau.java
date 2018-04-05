@@ -82,7 +82,24 @@ public class Monceau {
 
 	public boolean delete(int val) {
 		// A completer
-		return false;
+		boolean removeEffectuee = false;
+		for(int i = 0; i < this.arbres.size();i++)
+		{
+			if(this.arbres.get(i).findValue(val) != null)
+			{
+			 ArrayList<Node> arr = this.arbres.get(i).findValue(val).delete();
+			 this.arbres.remove(i);
+			 Monceau n = new Monceau();
+			 n.arbres = arr;
+			 this.fusion(n);
+			 
+			 removeEffectuee = true;
+			 this.delete(val);
+			 break;
+			}
+		}
+		
+		return removeEffectuee;
 	}
 
 	public void print() {
