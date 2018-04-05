@@ -14,10 +14,11 @@ public class Monceau {
 		Node arbrethis = null;
 		
 		
+		
 		int j = 0;
 		//tant qu<il ny a pu rien
 		//pour tout j
-		while(j < this.arbres.size() || j < autre.arbres.size() || (retenue!= null && j < retenue.ordre))
+		while(j < this.arbres.size() || j < autre.arbres.size() || (retenue!= null && j == retenue.ordre))
 		{
 		
 			int n = 0;
