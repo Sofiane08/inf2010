@@ -121,7 +121,7 @@ public class Monceau {
 			 break;
 			}
 		}
-
+		//TODO: bug, ne correspond pas au resultat attendu.
 		return removeEffectuee;
 	}
 
