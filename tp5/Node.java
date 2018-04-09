@@ -57,93 +57,126 @@ public class Node {
 
 	public Node fusion(Node autre) throws DifferentOrderTrees {
 		// A completer
-		if(this.ordre != autre.ordre) {throw new DifferentOrderTrees(); }
-		if(this.parent == null && autre.parent == null)
-		{
-			if(this.valeur < autre.valeur) 
-				{
-					autre.addEnfant(this);
-					autre.ordre++;
-					this.parent = autre;
-					return autre;
-				}
-			else
-				{
-					this.addEnfant(autre);
-					this.ordre++;
-					autre.parent = this;
-					return this;
-				}
+		
+		if( this.ordre != autre.ordre ) {
+			//Si les deux noeuds n'ont pas le même ordre
+			throw new DifferentOrderTrees(); 
+		}
+		
+		if(this.parent == null && autre.parent == null) {
+			//Si les deux noeuds sont des racines, on les fusionne
+			
+			if ( this.valeur < autre.valeur ) {
+				//Dans le cas ou le noeud this a une valeur plus petite que autre,
+				//on ajoute this comme enfant de autre
+				autre.addEnfant(this);
+				autre.ordre++;
+				this.parent = autre;
+				return autre;
+			}
+			
+			else {
+				//Dans le cas ou le noeud this a une valeur plus grande que autre,
+				//on ajoute autre comme enfant de this
+				this.addEnfant(autre);
+				this.ordre++;
+				autre.parent = this;
+				return this;
+			}
 		}
 		return null;
 	}
 
 	private void moveUp() {
 		// A completer
+		
 		Node parent = this.parent;
 		ArrayList<Node> enfants = this.enfants;
 		int ordre = this.ordre;
 		
+		//On échange la position du noeud this et de son parent
 		this.parent = parent.parent;
 		this.enfants = parent.enfants;
 		this.enfants.add(parent);
 		this.enfants.remove(this);
 		this.ordre = parent.ordre;
 		
+		//Les enfants du parent deviennent les enfants du noeud this
+		//et le parent du noeud this devient son enfant
 		parent.enfants = enfants;
 		parent.parent = this;
 		parent.ordre = ordre;
-		
-		if (this.parent != null)
-		{
+		if (this.parent != null) {
 			this.parent.enfants.add(this);
 			this.parent.enfants.remove(parent);
 		}
-		
 	}
 
 	public ArrayList<Node> delete() {
 		// A completer
-		while(this.parent != null)
+		
+		while(this.parent != null) {
+			//Tant que le noeud n'est pas la racine, on le fait monter (moveUp)
 			this.moveUp();
-		for(int i = 0; i < this.enfants.size(); i++)
-		{
+		}
+			
+		for(int i = 0; i < this.enfants.size(); i++) {
+			//On supprime la référence au noeud de ses enfants
 			this.enfants.get(i).parent = null;
 		}
+		
 		return this.enfants;
 	}
 
 	public Node findValue(int valeur) {
 		// A completer
-		if (this.valeur == valeur) {return this;}
-		else if(this.valeur > valeur)
-		{
-			for(int i = 0; i < this.enfants.size(); i++)
-			{
+		
+		//Renvoie le premier noeud ayant comme valeur "valeur" rencontré
+		if (this.valeur == valeur)
+			return this;
+		
+		//On effectue une recherche récursive parmis ses enfants
+		else if ( this.valeur > valeur) {
+			for ( int i = 0; i < this.enfants.size(); i++ ) {
 				Node temp = this.enfants.get(i).findValue(valeur);
-				if(temp != null) return temp;
+				if ( temp != null ) return temp;
 			}
 		}
+		
 		return null;
 	}
 
 	public ArrayList<Integer> getElementsSorted() {
 		// A completer
+		
 		ArrayList<Node> S = new ArrayList<Node>();
 		ArrayList<Integer> sorted = new ArrayList<Integer>();
+		
+		//Tri les éléments de l'arbre en ordre décroissant et retourne 
+		//les éléments triés
+		
+		//Algorithme ressemblant dijkstra, on place les noeuds visités dans S,
+		//puis on les met en ordre dans l'arrayList sorted
 		S.add(this); //la racine
-		while (S.size() != 0)
-		{
-			int indexmax = 0;
-			for(int n = 1; n < S.size(); n++)
+		
+		while (S.size() != 0) {
+			int indexmax = 0;	//index du noeud ayant la plus grande valeur à date
+			
+			for(int n = 1; n < S.size(); n++) {
+				//On trouve l'index du noeud ayant la plus grande valeur dans S
 				if(S.get(n).valeur > S.get(indexmax).valeur)
 					indexmax = n;
-			Node nodemax = S.get(indexmax);
+			}
 			
+			Node nodemax = S.get(indexmax);
+			//On ajoute le noeud ayant la plus grande valeur de S dans  
+			//l'ArrayList sorted, puis on le retire de S
 			sorted.add(nodemax.valeur);
 			S.remove(indexmax);
-			for(int n = 0; n < nodemax.enfants.size(); n++)
+			for(int n = 0; n < nodemax.enfants.size(); n++) {
+				//On ajoute les enfants du noeud dans S (noeuds visités)
 				S.add(nodemax.enfants.get(n));
+			}
 		}
 		
 		return sorted;

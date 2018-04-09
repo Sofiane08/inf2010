@@ -99,29 +99,36 @@ public class Monceau {
 		// A completer
 		Monceau n = new Monceau();
 		Node nnode = new Node(val);
+		
+		//On ajoute le Node nnode dans le monceau n
 		n.arbres.add(nnode);
+		
+		//On fusionne ce monceau avec this
 		this.fusion(n);
 	}
 
 	public boolean delete(int val) {
 		// A completer
 		boolean removeEffectuee = false;
-		for(int i = 0; i < this.arbres.size();i++)
-		{
-			if(this.arbres.get(i).findValue(val) != null)
-			{
-			 ArrayList<Node> arr = this.arbres.get(i).findValue(val).delete();
-			 this.arbres.remove(i);
-			 Monceau n = new Monceau();
-			 n.arbres = arr;
-			 this.fusion(n);
-
-			 removeEffectuee = true;
-			 this.delete(val);
-			 break;
+		
+		//On supprime tous les noeuds ayant la valeur val
+		for( int i = 0; i < this.arbres.size(); i++ ) {
+			if ( this.arbres.get(i).findValue(val) != null ) { 
+				//si on trouve un noeud de valeur val:
+				ArrayList<Node> arr = this.arbres.get(i).findValue(val).delete();
+				this.arbres.remove(i);
+				
+				//arr contient les enfants (arbres binomiaux) du noeud ayant comme valeur val
+				Monceau n = new Monceau();
+				n.arbres = arr;
+				this.fusion(n);
+	
+				removeEffectuee = true;
+				this.delete(val);
+				break;
 			}
 		}
-		//TODO: bug, ne correspond pas au resultat attendu.
+
 		return removeEffectuee;
 	}
 
