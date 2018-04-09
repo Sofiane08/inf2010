@@ -88,7 +88,7 @@ public class Node {
 		this.enfants = parent.enfants;
 		this.enfants.add(parent);
 		this.enfants.remove(this);
-		this.ordre++;
+		this.ordre = parent.ordre;
 		
 		parent.enfants = enfants;
 		parent.parent = this;
