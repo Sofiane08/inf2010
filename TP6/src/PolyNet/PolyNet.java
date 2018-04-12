@@ -1,5 +1,6 @@
 package PolyNet;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.PriorityQueue;
 
@@ -17,6 +18,36 @@ public class PolyNet {
         HashSet<PolyNetNode> visitedNodes = new HashSet<>();
 
         // À compléter
+        if(nodes.length != 0)
+        {
+        	visitedNodes.add(nodes[0]);
+        	ArrayList<PolyNetConnection> voisins = nodes[0].getConnections();
+        	for(int i = 0; i < voisins.size(); i++)
+        	{
+        		knownConnections.add(voisins.get(i));
+        	}
+        }
+        
+        
+        
+        
+        
+        for(int i = 0; i < nodes.length -1;)
+        {
+        	PolyNetConnection least = knownConnections.poll();
+        	if (!visitedNodes.contains(least.getConnectedNode()))
+        	{
+        		visitedNodes.add(least.getConnectedNode());
+        		totalCableLength += least.getDistance();
+        		ArrayList<PolyNetConnection> voisins = least.getConnectedNode().getConnections();
+        		for(int j = 0; j < voisins.size(); j++)
+        		{
+        		knownConnections.add(voisins.get(j));
+        		}
+        		i++;
+        	}
+        	
+        }
 
         return totalCableLength;
     }
