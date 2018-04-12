@@ -18,6 +18,10 @@ public class PolyNet {
         HashSet<PolyNetNode> visitedNodes = new HashSet<>();
 
         // À compléter
+        
+        //
+        // ajoute le premier node si il existe
+        //
         if(nodes.length != 0)
         {
         	visitedNodes.add(nodes[0]);
@@ -31,7 +35,10 @@ public class PolyNet {
         
         
         
-        
+        //
+        // pour le nombre restant de node, ajouter celui au bout de la connection
+        // la plus courte s'il n'est pas déjà visité.
+        //
         for(int i = 0; i < nodes.length -1;)
         {
         	PolyNetConnection least = knownConnections.poll();

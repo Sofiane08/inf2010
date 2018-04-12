@@ -27,14 +27,17 @@ public class CodeBase {
     private boolean existsCircularDependencies(SourceFile file, HashSet<SourceFile> dependentFiles)
     {
         // Ã€ complÃ©ter
+    	//si ce fichier est déjà vue, retourner vrai
     	if(dependentFiles.contains(file))
     		return true;
+    	//sinon, l'ajouter aux fichiers vus
     	dependentFiles.add(file);
     	
+    	//appliquer la méthode à chaque enfants.
     	for(Iterator<SourceFile> i = file.getDependencies().iterator(); i.hasNext() ;) {
     		if (this.existsCircularDependencies(i.next(), dependentFiles)) return true;
     	}
-    	
+    	//si nous nous rendons ici, aucun enfant n'as retourné vrai, donc aucune circular dependencies.
     	return false;
     }
 }
