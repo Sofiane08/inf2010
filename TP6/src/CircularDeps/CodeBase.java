@@ -1,6 +1,7 @@
 package CircularDeps;
 
 import java.util.HashSet;
+import java.util.Iterator;
 
 public class CodeBase {
     private SourceFile[] sourceFiles;
@@ -26,6 +27,14 @@ public class CodeBase {
     private boolean existsCircularDependencies(SourceFile file, HashSet<SourceFile> dependentFiles)
     {
         // À compléter
-    	return true;
+    	if(dependentFiles.contains(file))
+    		return true;
+    	dependentFiles.add(file);
+    	
+    	for(Iterator<SourceFile> i = file.getDependencies().iterator(); i.hasNext() ;) {
+    		if (this.existsCircularDependencies(i.next(), dependentFiles)) return true;
+    	}
+    	
+    	return false;
     }
 }
